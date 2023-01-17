@@ -2,16 +2,18 @@ import java.util.Scanner;
 
 public class App {
   public static void main(String[] args) {
+    final String welcomeMessage = "Welcome to Contacts Manager";
+    final String addContact = "1. Add a new contact";
+    final String searchContact = "2. Search for a contact";
+    final String deleteContact = "3. Delete a contact";
+    final String exit = "4. Exit";
+    final String enterChoice = "Enter your choice: ";
     ContactsManager myContactsManager = new ContactsManager();
     try (Scanner scanner = new Scanner(System.in)) {
       int choice = 0;
       while (choice != 4) {
-        System.out.println("Welcome to Contacts Manager");
-        System.out.println("1. Add a new contact");
-        System.out.println("2. Search for a contact");
-        System.out.println("3. Delete a contact");
-        System.out.println("4. Exit");
-        System.out.println("Enter your choice: ");
+        System.out
+            .println("\n" + welcomeMessage + "\n\n" + addContact + "\n" + searchContact + "\n" + deleteContact + "\n" + exit + "\n\n" + enterChoice);
         choice = scanner.nextInt();
         scanner.nextLine();
         switch (choice) {
