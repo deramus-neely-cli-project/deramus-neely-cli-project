@@ -15,7 +15,7 @@ public class ContactsManager {
     return null;
   }
 
-  public boolean deleteContact(int contactNumber) {
+  public boolean deleteContact(String contactNumber) {
     for (Contact contact : contacts) {
       if (contact.getName().equalsIgnoreCase(contactNumber)) {
         contacts.remove(contact);

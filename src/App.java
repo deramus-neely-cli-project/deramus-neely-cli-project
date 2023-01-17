@@ -37,7 +37,7 @@ public class App {
             System.out.println("Here are your contacts: ");
             myContactsManager.viewContacts();
             System.out.println("Press the number against the contact to delete it: ");
-            int contactNumber = scanner.nextInt();
+            String contactNumber = scanner.nextLine();
             scanner.nextLine();
             myContactsManager.deleteContact(contactNumber);
             break;
