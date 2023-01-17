@@ -2,44 +2,124 @@ package project;
 
 import java.io.*;
 import java.util.*;
-import project.app.Contact;
+import project.Contact;
 
-
-public class ContactsManager {
+public class ContactManager {
   private List<Contact> contacts;
-  private final String FILE_NAME = "contacts.txt";
+  private final String fileName = "Contacts.txt";
 
-  public ContactsManager() {
+  public Contact searchContact(String name) {
+    for (Contact contact : contacts) {
+      if (contact.getName().equalsIgnoreCase(name)) {
+        return contact;
+      }
+    }
+    return null;
+  }
+
+  public boolean deleteContact(String name) {
+    for (Contact contact : contacts) {
+      if (contact.getName().equalsIgnoreCase(name)) {
+        contacts.remove(contact);
+        return true;
+      }
+    }
+    return false;
+  }
+
+  public ContactManager() {
     contacts = new ArrayList<>();
-    readContactsFromFile();
+    File file = new File(fileName);
+    if (!file.exists()) {
+      try {
+        file.createNewFile();
+      } catch (IOException e) {
+        e.printStackTrace();
+      }
+    }
+    readContacts();
   }
 
-  private void readContactsFromFile() {
-    try {
-      File file = new File(FILE_NAME);
-      if (file.exists()) {
-        BufferedReader reader = new BufferedReader(new FileReader(file));
+  // method to read contacts from file and store in the contacts list
+  private void readContacts() {
+    File file = new File(fileName);
+    if (file.exists()) {
+      try (BufferedReader br = new BufferedReader(new FileReader(file))) {
         String line;
-        while ((line = reader.readLine()) != null) {
-          String[] parts = line.split(",");
-          contacts.add(new Contact(parts[0], parts[1]));
+        while ((line = br.readLine()) != null) {
+          String[] contactDetails = line.split(" ");
+          String name = contactDetails[0];
+          String phoneNumber = contactDetails[1];
+          contacts.add(new Contact(name, phoneNumber));
         }
-        reader.close();
+      } catch (IOException e) {
+        e.printStackTrace();
       }
-    } catch (IOException e) {
-      System.out.println("Error reading contacts file: " + e.getMessage());
     }
   }
 
-  private void writeContactsToFile() {
-    try {
-      PrintWriter writer = new PrintWriter("contacts.txt", "UTF-8");
+  // method to write the contacts list to the file
+  public void writeContacts() {
+    File file = new File(fileName);
+    try (BufferedWriter bw = new BufferedWriter(new FileWriter(file))) {
       for (Contact contact : contacts) {
-        writer.println(contact.getName() + "|" + contact.getPhoneNumber());
+        bw.write(contact.getName() + " " + contact.getPhoneNumber());
+        bw.newLine();
       }
-      writer.close();
     } catch (IOException e) {
-      System.out.println("An error occurred while writing to the contacts file.");
+      e.printStackTrace();
     }
+  }
+
+  // method to show the main menu and return the user's choice
+  public int showMenu() {
+    Scanner scanner = new Scanner(System.in);
+    System.out.println("1. View contacts");
+    System.out.println("2. Add a new contact");
+    System.out.println("3. Search a contact by name");
+    System.out.println("4. Delete an existing contact");
+    System.out.println("5. Exit");
+    System.out.print("Enter an option (1-5): ");
+    int choice = scanner.nextInt();
+    return choice;
+  }
+
+  // method to view all contacts
+  public void viewContacts() {
+    System.out.println("Name | Phone number");
+    System.out.println("---------------");
+    for (Contact contact : contacts) {
+      System.out.println(contact.getName() + " | " + contact.getPhoneNumber());
+    }
+  }
+
+  // adds a new contact to the list
+  public void addContact() {
+    Scanner scanner = new Scanner(System.in);
+    System.out.print("Enter the name of the contact: ");
+    String name = scanner.nextLine();
+    System.out.print("Enter the phone number of the contact: ");
+    String phoneNumber = scanner.nextLine();
+
+    // check if a contact with the same name already exists
+    for (Contact contact : contacts) {
+      if (contact.getName().equalsIgnoreCase(name)) {
+        System.out.println("A contact with the same name already exists.");
+        System.out.print("Do you want to overwrite it? (Yes/No): ");
+        String choice = scanner.nextLine();
+        if (!choice.equalsIgnoreCase("yes")) {
+          // if the user does not want to overwrite, return without adding the contact
+          return;
+        }
+        break;
+      }
+    }
+
+    // format the phone number as (XXX) XXX-XXXX
+    phoneNumber = formatPhoneNumber(phoneNumber);
+
+    // add the contact to the list
+    contacts.add(new Contact(name, phoneNumber));
+    System.out.println("Contact added successfully.");
   }
 }
