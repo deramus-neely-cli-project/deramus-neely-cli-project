@@ -3,8 +3,8 @@ import java.io.*;
 import java.util.*;
 
 public class ContactsManager {
-  private List<Contact> contacts;
-  private final String fileName = "Contacts.txt";
+  public List<Contact> contacts;
+  public final String fileName = "Contacts.txt";
 
   public Contact searchContact(String name) {
     for (Contact contact : contacts) {
@@ -15,9 +15,9 @@ public class ContactsManager {
     return null;
   }
 
-  public boolean deleteContact(String name) {
+  public boolean deleteContact(int contactNumber) {
     for (Contact contact : contacts) {
-      if (contact.getName().equalsIgnoreCase(name)) {
+      if (contact.getName().equalsIgnoreCase(contactNumber)) {
         contacts.remove(contact);
         return true;
       }
@@ -39,7 +39,7 @@ public class ContactsManager {
   }
 
   // method to read contacts from file and store in the contacts list
-  private void readContacts() {
+  public void readContacts() {
     File file = new File(fileName);
     if (file.exists()) {
       try (BufferedReader br = new BufferedReader(new FileReader(file))) {
@@ -71,15 +71,16 @@ public class ContactsManager {
 
   // method to show the main menu and return the user's choice
   public int showMenu() {
-    Scanner scanner = new Scanner(System.in);
-    System.out.println("1. View contacts");
-    System.out.println("2. Add a new contact");
-    System.out.println("3. Search a contact by name");
-    System.out.println("4. Delete an existing contact");
-    System.out.println("5. Exit");
-    System.out.print("Enter an option (1-5): ");
-    int choice = scanner.nextInt();
-    return choice;
+    try (Scanner scanner = new Scanner(System.in)) {
+      System.out.println("1. View contacts");
+      System.out.println("2. Add a new contact");
+      System.out.println("3. Search a contact by name");
+      System.out.println("4. Delete an existing contact");
+      System.out.println("5. Exit");
+      System.out.print("Enter an option (1-5): ");
+      int choice = scanner.nextInt();
+      return choice;
+    }
   }
 
   // method to view all contacts
@@ -92,36 +93,37 @@ public class ContactsManager {
   }
 
   // adds a new contact to the list
-  public void addContact() {
-    Scanner scanner = new Scanner(System.in);
-    System.out.print("Enter the name of the contact: ");
-    String name = scanner.nextLine();
-    System.out.print("Enter the phone number of the contact: ");
-    String phoneNumber = scanner.nextLine();
+  public void addContact(String name2, String phone) {
+    try (Scanner scanner = new Scanner(System.in)) {
+			System.out.print("Enter the name of the contact: ");
+			String name = scanner.nextLine();
+			System.out.print("Enter the phone number of the contact: ");
+			String phoneNumber = scanner.nextLine();
 
-    // check if a contact with the same name already exists
-    for (Contact contact : contacts) {
-      if (contact.getName().equalsIgnoreCase(name)) {
-        System.out.println("A contact with the same name already exists.");
-        System.out.print("Do you want to overwrite it? (Yes/No): ");
-        String choice = scanner.nextLine();
-        if (!choice.equalsIgnoreCase("yes")) {
-          // if the user does not want to overwrite, return without adding the contact
-          return;
-        }
-        break;
-      }
-    }
+			// check if a contact with the same name already exists
+			for (Contact contact : contacts) {
+			  if (contact.getName().equalsIgnoreCase(name)) {
+			    System.out.println("A contact with the same name already exists.");
+			    System.out.print("Do you want to overwrite it? (Yes/No): ");
+			    String choice = scanner.nextLine();
+			    if (!choice.equalsIgnoreCase("yes")) {
+			      // if the user does not want to overwrite, return without adding the contact
+			      return;
+			    }
+			    break;
+			  }
+			}
 
-    // format the phone number as (XXX) XXX-XXXX
-    phoneNumber = formatPhoneNumber(phoneNumber);
+			// format the phone number as (XXX) XXX-XXXX
+			phoneNumber = formatPhoneNumber(phoneNumber);
 
-    // add the contact to the list
-    contacts.add(new Contact(name, phoneNumber));
+			// add the contact to the list
+			contacts.add(new Contact(name, phoneNumber));
+		}
     System.out.println("Contact added successfully.");
   }
 
-  private String formatPhoneNumber(String phoneNumber) {
+  public String formatPhoneNumber(String phoneNumber) {
     return null;
   }
 }
