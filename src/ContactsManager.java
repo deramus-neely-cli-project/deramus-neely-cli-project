@@ -2,6 +2,10 @@ import java.util.*;
 
 public class ContactsManager {
 
+  public static void print(String message) {
+    System.out.println(message);
+  }
+
   private final List<Contact> contacts;
   private final FileHandler fileHandler;
 
@@ -12,7 +16,7 @@ public class ContactsManager {
 
   public void addContact(String name, String phone) {
     while (phone.length() < 10) {
-      System.out.println("Invalid phone number. Please enter a valid phone number with at least 10 digits.");
+      print("Invalid phone number. Please enter a valid phone number with at least 10 digits.");
       phone = new Scanner(System.in).nextLine();
     }
     Contact newContact = new Contact(name, phone);
@@ -23,7 +27,7 @@ public class ContactsManager {
   public String getValidPhoneNumber(Scanner scanner) {
     String phoneNumber;
     do {
-      System.out.println("Please enter a phone number with at least 10 digits:");
+      print("Please enter a phone number with at least 10 digits:");
       phoneNumber = scanner.nextLine();
     } while (phoneNumber.length() < 10);
     return formatPhoneNumber(phoneNumber);
@@ -50,10 +54,10 @@ public class ContactsManager {
 
   // method to view all contacts
   public void viewContacts() {
-    System.out.println("Name | Phone number");
-    System.out.println("---------------");
+    print("Name | Phone number");
+    print("---------------");
     for (Contact contact : contacts) {
-      System.out.println(contact.getName() + " | " + contact.getPhoneNumber());
+      print(contact.getName() + " | " + contact.getPhoneNumber());
     }
   }
 

@@ -13,11 +13,10 @@ public class App {
     try (Scanner scanner = new Scanner(System.in)) {
       int choice = 0;
       while (choice != 4) {
-        System.out
-            .println("\n" + Constants.welcomeMessage + "\n\n" + Constants.addContact + "\n" + Constants.viewAllContacts
-                + "\n" + Constants.searchContact
-                + "\n" + Constants.deleteContact + "\n"
-                + Constants.exit + "\n\n" + Constants.enterChoice);
+        print(
+            "\n" + Constants.welcomeMessage + "\n\n" + Constants.addContact + "\n" + Constants.viewAllContacts
+                + "\n" + Constants.searchContact + "\n" + Constants.deleteContact + "\n" + Constants.exit + "\n\n"
+                + Constants.enterChoice);
         choice = scanner.nextInt();
         scanner.nextLine();
         switch (choice) {
@@ -52,7 +51,10 @@ public class App {
             myContactsManager.deleteContactByName(contactNumber);
             choice = 0;
           }
-          case 5 -> print(Constants.exiting);
+          case 5 -> {
+            print(Constants.exiting);
+            System.exit(0);
+          }
           default -> print(Constants.wrongChoice);
         }
       }
