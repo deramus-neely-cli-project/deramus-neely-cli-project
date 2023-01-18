@@ -11,8 +11,8 @@ public class App {
     ContactsManager myContactsManager = new ContactsManager(fileName);
 
     try (Scanner scanner = new Scanner(System.in)) {
-      int choice = 0;
-      while (choice != 4) {
+      int choice;
+      while (true) {
         print(
             "\n" + Constants.welcomeMessage + "\n\n" + Constants.addContact + "\n" + Constants.viewAllContacts
                 + "\n" + Constants.searchContact + "\n" + Constants.deleteContact + "\n" + Constants.exit + "\n\n"
@@ -49,7 +49,6 @@ public class App {
             print(Constants.deleteChoice);
             String contactNumber = scanner.nextLine();
             myContactsManager.deleteContactByName(contactNumber);
-            choice = 0;
           }
           case 5 -> {
             print(Constants.exiting);
