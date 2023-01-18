@@ -20,6 +20,25 @@ public class Contact {
   }
 
   public void setPhoneNumber(String phoneNumber) {
-    this.phoneNumber = phoneNumber;
+    if (phoneNumber.matches("[0-9]+") && (phoneNumber.length() == 10 || phoneNumber.length() == 11)) {
+      this.phoneNumber = phoneNumber;
+    } else {
+      System.out.println("Invalid phone number. Phone number should be 10 or 11 digits.");
+    }
+  }
+
+  @Override
+  public String toString() {
+    return "Name: " + name + ", Phone number: " + phoneNumber;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o)
+      return true;
+    if (o == null || getClass() != o.getClass())
+      return false;
+    Contact contact = (Contact) o;
+    return phoneNumber.equals(contact.phoneNumber);
   }
 }

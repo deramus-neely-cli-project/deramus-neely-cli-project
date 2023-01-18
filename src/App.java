@@ -1,6 +1,11 @@
 import java.util.Scanner;
 
 public class App {
+
+  public static void print(String message) {
+    System.out.println(message);
+  }
+
   public static void main(String[] args) {
     final String welcomeMessage = "Welcome to Contacts Manager";
     final String addContact = "1. Add a new contact";
@@ -8,46 +13,57 @@ public class App {
     final String deleteContact = "3. Delete a contact";
     final String exit = "4. Exit";
     final String enterChoice = "Enter your choice: ";
-    ContactsManager myContactsManager = new ContactsManager();
+    final String addContactChoice = "You have chosen to add a new contact: ";
+    final String nameSearch = "Enter the name of the contact: ";
+    final String enterNumber = "Enter the phone number of the contact: ";
+    final String contactSearch = "Enter the name of the contact to search for: ";
+    final String noResults = "NO RESULTS FOUND!";
+    final String contactList = "Here are your contacts: ";
+    final String deleteChoice = "Enter the name of the contact to delete: ";
+    final String exiting = "Exiting...";
+    final String wrongChoice = "Wrong choice";
+    String fileName = "Contacts.txt";
+
+    ContactsManager myContactsManager = new ContactsManager(fileName);
     try (Scanner scanner = new Scanner(System.in)) {
       int choice = 0;
       while (choice != 4) {
         System.out
-            .println("\n" + welcomeMessage + "\n\n" + addContact + "\n" + searchContact + "\n" + deleteContact + "\n" + exit + "\n\n" + enterChoice);
+            .println("\n" + welcomeMessage + "\n\n" + addContact + "\n" + searchContact + "\n" + deleteContact + "\n"
+                + exit + "\n\n" + enterChoice);
         choice = scanner.nextInt();
         scanner.nextLine();
         switch (choice) {
           case 1:
-            System.out.println("You have chosen to add a new contact: ");
-            System.out.println("Please enter the name of the Person");
+            print(addContactChoice);
+            print(nameSearch);
             String name = scanner.nextLine();
-            System.out.println("Please enter the phone number");
+            print(enterNumber);
             String phone = scanner.nextLine();
-            myContactsManager.addContact(name, phone);
+            myContactsManager.addContact(new Contact(name, phone));
             break;
           case 2:
-            System.out.println("You could search for a contact from their first names: ");
+            print(contactSearch);
             String searchName = scanner.nextLine();
             Contact result = myContactsManager.searchContact(searchName);
             if (result != null) {
-              System.out.println("Name: " + result.getName() + ", phone number is " + result.getPhoneNumber());
+              print("Name: " + result.getName() + ", phone number is " + result.getPhoneNumber());
             } else {
-              System.out.println("NO RESULTS FOUND!");
+              print(noResults);
             }
             break;
           case 3:
-            System.out.println("Here are your contacts: ");
+            print(contactList);
             myContactsManager.viewContacts();
-            System.out.println("Press the number against the contact to delete it: ");
+            print(deleteChoice);
             String contactNumber = scanner.nextLine();
-            scanner.nextLine();
-            myContactsManager.deleteContact(contactNumber);
+            myContactsManager.deleteContactByName(contactNumber);
             break;
           case 4:
-            System.out.println("Exiting...");
+            print(exiting);
             break;
           default:
-            System.out.println("Wrong choice");
+            print(wrongChoice);
         }
       }
     }
