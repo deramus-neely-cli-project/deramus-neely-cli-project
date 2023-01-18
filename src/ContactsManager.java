@@ -23,16 +23,6 @@ public class ContactsManager {
     Contact newContact = new Contact(name, phone);
     contacts.add(newContact);
     fileHandler.writeContacts(contacts);
-}
-
-
-  public String getValidPhoneNumber(Scanner scanner) {
-    String phoneNumber;
-    do {
-      print("Please enter a phone number with at least 10 digits:");
-      phoneNumber = scanner.nextLine();
-    } while (phoneNumber.length() < 10);
-    return formatPhoneNumber(phoneNumber);
   }
 
   public Contact searchContact(String name) {
