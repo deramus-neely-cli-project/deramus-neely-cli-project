@@ -34,15 +34,15 @@ public class App {
         choice = scanner.nextInt();
         scanner.nextLine();
         switch (choice) {
-          case 1:
+          case 1 -> {
             print(addContactChoice);
             print(nameSearch);
             String name = scanner.nextLine();
             print(enterNumber);
             String phone = scanner.nextLine();
             myContactsManager.addContact(new Contact(name, phone));
-            break;
-          case 2:
+          }
+          case 2 -> {
             print(contactSearch);
             String searchName = scanner.nextLine();
             Contact result = myContactsManager.searchContact(searchName);
@@ -51,19 +51,16 @@ public class App {
             } else {
               print(noResults);
             }
-            break;
-          case 3:
+          }
+          case 3 -> {
             print(contactList);
             myContactsManager.viewContacts();
             print(deleteChoice);
             String contactNumber = scanner.nextLine();
             myContactsManager.deleteContactByName(contactNumber);
-            break;
-          case 4:
-            print(exiting);
-            break;
-          default:
-            print(wrongChoice);
+          }
+          case 4 -> print(exiting);
+          default -> print(wrongChoice);
         }
       }
     }

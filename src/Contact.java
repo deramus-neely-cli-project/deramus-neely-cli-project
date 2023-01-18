@@ -11,20 +11,8 @@ public class Contact {
     return name;
   }
 
-  public void setName(String name) {
-    this.name = name;
-  }
-
   public String getPhoneNumber() {
     return phoneNumber;
-  }
-
-  public void setPhoneNumber(String phoneNumber) {
-    if (phoneNumber.matches("[0-9]+") && (phoneNumber.length() == 10 || phoneNumber.length() == 11)) {
-      this.phoneNumber = phoneNumber;
-    } else {
-      System.out.println("Invalid phone number. Phone number should be 10 or 11 digits.");
-    }
   }
 
   @Override
