@@ -16,7 +16,7 @@ public class ContactsManager {
 
   public void addContact(String name, String phone) {
     while (phone.length() < 10) {
-      print("Invalid phone number. Please enter a valid phone number with at least 10 digits.");
+      print(Constants.InvalidNumber);
       phone = new Scanner(System.in).nextLine();
     }
     phone = formatPhoneNumber(phone);

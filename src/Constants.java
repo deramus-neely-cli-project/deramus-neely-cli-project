@@ -9,6 +9,7 @@ final public class Constants {
   public static final String AddContactChoice = "You have chosen to add a new contact";
   public static final String NameSearch = "Enter the name of the contact: ";
   public static final String EnterNumber = "Enter the phone number of the contact: ";
+  public static final String InvalidNumber = "Invalid phone number. Please enter a valid phone number with at least 10 digits";
   public static final String ContactSearch = "Enter the name of the contact to search for: ";
   public static final String NoResults = "No results found";
   public static final String ContactList = "Here are your contacts: ";
