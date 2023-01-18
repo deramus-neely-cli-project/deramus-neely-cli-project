@@ -19,10 +19,12 @@ public class ContactsManager {
       print("Invalid phone number. Please enter a valid phone number with at least 10 digits.");
       phone = new Scanner(System.in).nextLine();
     }
+    phone = formatPhoneNumber(phone);
     Contact newContact = new Contact(name, phone);
     contacts.add(newContact);
     fileHandler.writeContacts(contacts);
-  }
+}
+
 
   public String getValidPhoneNumber(Scanner scanner) {
     String phoneNumber;
