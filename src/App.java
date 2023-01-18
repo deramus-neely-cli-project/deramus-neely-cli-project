@@ -14,7 +14,8 @@ public class App {
       int choice = 0;
       while (choice != 4) {
         System.out
-            .println("\n" + Constants.welcomeMessage + "\n\n" + Constants.addContact + "\n" + Constants.searchContact
+            .println("\n" + Constants.welcomeMessage + "\n\n" + Constants.addContact + "\n" + Constants.viewAllContacts
+                + "\n" + Constants.searchContact
                 + "\n" + Constants.deleteContact + "\n"
                 + Constants.exit + "\n\n" + Constants.enterChoice);
         choice = scanner.nextInt();
@@ -26,9 +27,14 @@ public class App {
             String name = scanner.nextLine();
             print(Constants.enterNumber);
             String phone = scanner.nextLine();
-            myContactsManager.addContact(new Contact(name, phone));
+            myContactsManager.addContact(name, phone);
           }
           case 2 -> {
+            print("\n" + Constants.contactList + "\n");
+            myContactsManager.viewContacts();
+          }
+          case 3 -> {
+            myContactsManager.viewContacts();
             print(Constants.contactSearch);
             String searchName = scanner.nextLine();
             Contact result = myContactsManager.searchContact(searchName);
@@ -38,14 +44,15 @@ public class App {
               print(Constants.noResults);
             }
           }
-          case 3 -> {
+          case 4 -> {
             print(Constants.contactList);
             myContactsManager.viewContacts();
             print(Constants.deleteChoice);
             String contactNumber = scanner.nextLine();
             myContactsManager.deleteContactByName(contactNumber);
+            choice = 0;
           }
-          case 4 -> print(Constants.exiting);
+          case 5 -> print(Constants.exiting);
           default -> print(Constants.wrongChoice);
         }
       }

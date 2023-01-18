@@ -1,10 +1,11 @@
 final public class Constants {
   public static final String welcomeMessage = "Welcome to Contacts Manager";
   public static final String addContact = "1. Add a new contact";
-  public static final String searchContact = "2. Search for a contact";
-  public static final String deleteContact = "3. Delete a contact";
-  public static final String exit = "4. Exit";
-  public static final String enterChoice = "Enter your choice: ";
+  public static final String viewAllContacts = "2. View all contacts";
+  public static final String searchContact = "3. Search for a contact";
+  public static final String deleteContact = "4. Delete a contact";
+  public static final String exit = "5. Close app";
+  public static final String enterChoice = "Type the number of your choice: ";
   public static final String addContactChoice = "You have chosen to add a new contact: ";
   public static final String nameSearch = "Enter the name of the contact: ";
   public static final String enterNumber = "Enter the phone number of the contact: ";
