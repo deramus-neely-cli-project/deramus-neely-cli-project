@@ -9,27 +9,27 @@ public class FileHandler {
   }
 
   public List<Contact> readContacts() {
-    List<Contact> contacts = new ArrayList<>();
-    File file = new File(FileName);
-    if (file.exists()) {
-      try (BufferedReader br = new BufferedReader(new FileReader(file))) {
+    List<Contact> Contacts = new ArrayList<>();
+    File File = new File(FileName);
+    if (File.exists()) {
+      try (BufferedReader br = new BufferedReader(new FileReader(File))) {
         String line;
         while ((line = br.readLine()) != null) {
           String[] contactDetails = line.split(" ");
           String name = contactDetails[0];
           String phoneNumber = contactDetails[1];
-          contacts.add(new Contact(name, phoneNumber));
+          Contacts.add(new Contact(name, phoneNumber));
         }
       } catch (IOException e) {
         e.printStackTrace();
       }
     }
-    return contacts;
+    return Contacts;
   }
 
   public void writeContacts(List<Contact> contacts) {
-    File file = new File(FileName);
-    try (BufferedWriter bw = new BufferedWriter(new FileWriter(file))) {
+    File File = new File(FileName);
+    try (BufferedWriter bw = new BufferedWriter(new FileWriter(File))) {
       for (Contact contact : contacts) {
         bw.write(contact.getName() + " " + contact.getPhoneNumber());
         bw.newLine();
