@@ -2,59 +2,61 @@ import java.util.Scanner;
 
 public class App {
 
-  public static void print(String message) {
+  public static void Print(String message) {
     System.out.println(message);
   }
 
   public static void main(String[] args) {
-    String fileName = "Contacts.txt";
+    final String fileName = "Contacts.txt";
     ContactsManager myContactsManager = new ContactsManager(fileName);
 
     try (Scanner scanner = new Scanner(System.in)) {
       int choice;
       while (true) {
-        print(
-            "\n" + Constants.welcomeMessage + "\n\n" + Constants.addContact + "\n" + Constants.viewAllContacts
-                + "\n" + Constants.searchContact + "\n" + Constants.deleteContact + "\n" + Constants.exit + "\n\n"
-                + Constants.enterChoice);
+        Print(
+            "\n" + Constants.WelcomeMessage + "\n\n" + Constants.AddContact + "\n" + Constants.ViewAllContacts
+                + "\n" + Constants.SearchContact + "\n" + Constants.DeleteContact + "\n" + Constants.Exit + "\n\n"
+                + Constants.EnterChoice);
         choice = scanner.nextInt();
         scanner.nextLine();
         switch (choice) {
           case 1 -> {
-            print(Constants.addContactChoice);
-            print(Constants.nameSearch);
+            Print("\n" + Constants.AddContactChoice);
+            Print(Constants.NameSearch);
             String name = scanner.nextLine();
-            print(Constants.enterNumber);
+            Print("\n" + Constants.EnterNumber);
             String phone = scanner.nextLine();
             myContactsManager.addContact(name, phone);
+            Print("\n" + name + " has been added to your contacts.");
           }
           case 2 -> {
-            print("\n" + Constants.contactList + "\n");
+            Print("\n" + Constants.ContactList + "\n");
             myContactsManager.viewContacts();
           }
           case 3 -> {
+            Print("");
             myContactsManager.viewContacts();
-            print(Constants.contactSearch);
+            Print("\n" + Constants.ContactSearch);
             String searchName = scanner.nextLine();
             Contact result = myContactsManager.searchContact(searchName);
             if (result != null) {
-              print("Name: " + result.getName() + ", phone number is " + result.getPhoneNumber());
+              Print("\nName: " + result.getName() + ", phone number is " + result.getPhoneNumber());
             } else {
-              print(Constants.noResults);
+              Print(Constants.NoResults);
             }
           }
           case 4 -> {
-            print(Constants.contactList);
+            Print("\n" + Constants.ContactList + "\n");
             myContactsManager.viewContacts();
-            print(Constants.deleteChoice);
+            Print("\n" + Constants.DeleteChoice);
             String contactNumber = scanner.nextLine();
             myContactsManager.deleteContactByName(contactNumber);
           }
           case 5 -> {
-            print(Constants.exiting);
+            Print("\n" + Constants.Exiting + "\n");
             System.exit(0);
           }
-          default -> print(Constants.wrongChoice);
+          default -> Print(Constants.WrongChoice);
         }
       }
     }
