@@ -2,15 +2,15 @@ import java.io.*;
 import java.util.*;
 
 public class FileHandler {
-  private final String fileName;
+  private final String FileName;
 
   public FileHandler(String fileName) {
-    this.fileName = fileName;
+    this.FileName = fileName;
   }
 
   public List<Contact> readContacts() {
     List<Contact> contacts = new ArrayList<>();
-    File file = new File(fileName);
+    File file = new File(FileName);
     if (file.exists()) {
       try (BufferedReader br = new BufferedReader(new FileReader(file))) {
         String line;
@@ -28,7 +28,7 @@ public class FileHandler {
   }
 
   public void writeContacts(List<Contact> contacts) {
-    File file = new File(fileName);
+    File file = new File(FileName);
     try (BufferedWriter bw = new BufferedWriter(new FileWriter(file))) {
       for (Contact contact : contacts) {
         bw.write(contact.getName() + " " + contact.getPhoneNumber());
