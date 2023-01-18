@@ -58,13 +58,6 @@ public class ContactsManager {
     if (phoneNumber.length() < 10) {
       return phoneNumber;
     }
-    StringBuilder formattedNumber = new StringBuilder();
-    formattedNumber.append("(");
-    formattedNumber.append(phoneNumber.substring(0, 3));
-    formattedNumber.append(") ");
-    formattedNumber.append(phoneNumber.substring(3, 6));
-    formattedNumber.append("-");
-    formattedNumber.append(phoneNumber.substring(6));
-    return formattedNumber.toString();
+    return "(" + phoneNumber.substring(0, 3) + ") " + phoneNumber.substring(3, 6) + "-" + phoneNumber.substring(6);
   }
 }
