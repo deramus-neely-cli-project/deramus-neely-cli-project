@@ -16,5 +16,3 @@ final public class Constants {
   public static final String wrongChoice = "Wrong choice";
   public static final String fileName = "Contacts.txt";
 }
-
-// TODO: Try and import this to src\App.java and use the constants there
