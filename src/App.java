@@ -9,7 +9,7 @@ public class App {
   }
 
   public static void main(String[] args) {
-    final String FILE_NAME = "Contacts.txt";
+    final String FILE_NAME = "data/Contacts.txt";
     ContactsManager myContactsManager = new ContactsManager(FILE_NAME);
 
     // this code is used to get user input
