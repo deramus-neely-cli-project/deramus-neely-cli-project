@@ -1,6 +1,6 @@
 import java.util.*;
 
-public class ContactsManager {
+public class ContactManager {
 
   // method to print messages without having to type System.out.println() every
   // time
@@ -12,7 +12,7 @@ public class ContactsManager {
   private final FileHandler FILE_HANDLER;
 
   // Constructor for ContactsManager class
-  public ContactsManager(String fileName) {
+  public ContactManager(String fileName) {
     FILE_HANDLER = new FileHandler(fileName);
     CONTACTS = FILE_HANDLER.readContacts();
   }

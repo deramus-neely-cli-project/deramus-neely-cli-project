@@ -10,7 +10,7 @@ public class App {
 
   public static void main(String[] args) {
     final String FILE_NAME = "data/Contacts.txt";
-    ContactsManager myContactsManager = new ContactsManager(FILE_NAME);
+    ContactManager myContactsManager = new ContactManager(FILE_NAME);
 
     // this code is used to get user input
     try (Scanner scanner = new Scanner(System.in)) {
