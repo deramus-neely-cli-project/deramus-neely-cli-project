@@ -1,16 +1,19 @@
 import java.io.*;
 import java.util.*;
 
-public class FileHandler {
-  private final String FileName;
 
+public class FileHandler {
+  private final String FILE_NAME;
+
+  // Constructor for FileHandler class
   public FileHandler(String fileName) {
-    this.FileName = fileName;
+    this.FILE_NAME = fileName;
   }
 
+  // method to read contacts from file
   public List<Contact> readContacts() {
     List<Contact> Contacts = new ArrayList<>();
-    File File = new File(FileName);
+    File File = new File(FILE_NAME);
     if (File.exists()) {
       try (BufferedReader br = new BufferedReader(new FileReader(File))) {
         String line;
@@ -27,8 +30,10 @@ public class FileHandler {
     return Contacts;
   }
 
+  // method to write contacts to file
   public void writeContacts(List<Contact> contacts) {
-    File File = new File(FileName);
+    File File = new File(FILE_NAME);
+    // if file doesn't exist, create it
     try (BufferedWriter bw = new BufferedWriter(new FileWriter(File))) {
       for (Contact contact : contacts) {
         bw.write(contact.getName() + " " + contact.getPhoneNumber());

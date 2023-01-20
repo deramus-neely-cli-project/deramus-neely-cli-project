@@ -1,62 +1,92 @@
-import java.util.Scanner;
+import java.util.*;
 
 public class App {
 
-  public static void Print(String message) {
+  // method to print messages without having to type System.out.println() every
+  // time
+  public static void print(String message) {
     System.out.println(message);
   }
 
   public static void main(String[] args) {
-    final String fileName = "Contacts.txt";
-    ContactsManager myContactsManager = new ContactsManager(fileName);
+    final String FILE_NAME = "Contacts.txt";
+    ContactsManager myContactsManager = new ContactsManager(FILE_NAME);
 
+    // this code is used to get user input
     try (Scanner scanner = new Scanner(System.in)) {
-      int choice;
+      int choice; // user's input choice
       while (true) {
-        Print(
-            "\n" + Constants.WelcomeMessage + "\n\n" + Constants.AddContact + "\n" + Constants.ViewAllContacts
-                + "\n" + Constants.SearchContact + "\n" + Constants.DeleteContact + "\n" + Constants.Exit + "\n\n"
-                + Constants.EnterChoice);
-        choice = scanner.nextInt();
-        scanner.nextLine();
+        print(
+            "\n" + Constants.WELCOME_MESSAGE + "\n\n" + Constants.ADD_CONTACT + "\n" + Constants.VIEW_ALL_CONTACTS
+                + "\n" + Constants.SEARCH_CONTACT + "\n" + Constants.DELETE_CONTACT + "\n" + Constants.EXIT + "\n\n"
+                + Constants.ENTER_CHOICE);
+        // this code is used to validate user input
+        while (true) {
+          try {
+            choice = scanner.nextInt();
+            scanner.nextLine();
+            break;
+          } catch (InputMismatchException e) {
+            print(Constants.INVALID_CHOICE);
+            scanner.nextLine();
+          }
+        }
         switch (choice) {
+          // if user chooses 1, the user can add a contact
           case 1 -> {
-            Print("\n" + Constants.AddContactChoice);
-            Print(Constants.NameSearch);
+            print("\n" + Constants.ADD_CONTACT_CHOICE);
+            print(Constants.NAME_SEARCH);
             String name = scanner.nextLine();
-            Print("\n" + Constants.EnterNumber);
+            print("\n" + Constants.ENTER_NUMBER);
             String phone = scanner.nextLine();
             myContactsManager.addContact(name, phone);
-            Print("\n" + name + " has been added to your contacts.");
+            print("\n" + name + " has been added to your contacts.");
           }
+          // if user chooses 2, the user can view all contacts
           case 2 -> {
-            Print("\n" + Constants.ContactList + "\n");
+            print("\n" + Constants.CONTACT_LIST + "\n");
             myContactsManager.viewContacts();
           }
+          // if user chooses 3, the user can search for a contact
           case 3 -> {
-            Print("");
+            print("");
             myContactsManager.viewContacts();
-            Print("\n" + Constants.ContactSearch);
+            print("\n" + Constants.CONTACT_SEARCH);
             String searchName = scanner.nextLine();
             Contact result = myContactsManager.searchContact(searchName);
             if (result != null) {
-              Print("\nName: " + result.getName() + ", phone number is " + result.getPhoneNumber());
+              print("\nName: " + result.getName() + ", phone number is " + result.getPhoneNumber());
             } else {
-              Print(Constants.NoResults);
+              print(Constants.NO_RESULTS);
             }
           }
+          // if user chooses 4, the user can delete a contact
           case 4 -> {
-            Print("\n" + Constants.ContactList + "\n");
+            print("\n" + Constants.CONTACT_LIST + "\n");
             myContactsManager.viewContacts();
-            Print("\n" + Constants.DeleteChoice);
+            print("\n" + Constants.DELETE_CHOICE);
             String contactNumber = scanner.nextLine();
             myContactsManager.deleteContactByName(contactNumber);
           }
+          // if user chooses 5, exit the app
           case 5 -> {
-            Print("\n" + Constants.Exiting + "\n");
+            print("\n" + Constants.EXITING + "\n");
             System.exit(0);
           }
-          default -> Print(Constants.WrongChoice);
+          // if user chooses anything else
+          default -> {
+            while (true) {
+              try {
+                print(Constants.INVALID_CHOICE);
+                choice = scanner.nextInt();
+                scanner.nextLine();
+                break;
+              } catch (InputMismatchException e) {
+                print(Constants.INVALID_CHOICE);
+                scanner.nextLine();
+              }
+            }
+          }
         }
       }
     }

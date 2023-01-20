@@ -2,31 +2,39 @@ import java.util.*;
 
 public class ContactsManager {
 
+  // method to print messages without having to type System.out.println() every
+  // time
   public static void print(String message) {
     System.out.println(message);
   }
 
-  private final List<Contact> contacts;
-  private final FileHandler fileHandler;
+  private final List<Contact> CONTACTS;
+  private final FileHandler FILE_HANDLER;
 
+  // Constructor for ContactsManager class
   public ContactsManager(String fileName) {
-    fileHandler = new FileHandler(fileName);
-    contacts = fileHandler.readContacts();
+    FILE_HANDLER = new FileHandler(fileName);
+    CONTACTS = FILE_HANDLER.readContacts();
   }
 
+  // method to add a contact
   public void addContact(String name, String phone) {
-    while (phone.length() < 10) {
-      print(Constants.InvalidNumber);
-      phone = new Scanner(System.in).nextLine();
+    for (Contact contact : CONTACTS) {
+      if (contact.getName().equalsIgnoreCase(name)) {
+        System.out.println(name + " already exists. Please enter a new name.");
+        return;
+      }
     }
     phone = formatPhoneNumber(phone);
     Contact newContact = new Contact(name, phone);
-    contacts.add(newContact);
-    fileHandler.writeContacts(contacts);
+    CONTACTS.add(newContact);
+    FILE_HANDLER.writeContacts(CONTACTS);
   }
 
+
+  // method to search for a contact
   public Contact searchContact(String name) {
-    for (Contact contact : contacts) {
+    for (Contact contact : CONTACTS) {
       if (contact.getName().equalsIgnoreCase(name)) {
         return contact;
       }
@@ -34,11 +42,12 @@ public class ContactsManager {
     return null;
   }
 
+  // method to delete a contact
   public void deleteContactByName(String name) {
-    for (Contact contact : contacts) {
+    for (Contact contact : CONTACTS) {
       if (contact.getName().equalsIgnoreCase(name)) {
-        contacts.remove(contact);
-        fileHandler.writeContacts(contacts);
+        CONTACTS.remove(contact);
+        FILE_HANDLER.writeContacts(CONTACTS);
         return;
       }
     }
@@ -48,7 +57,7 @@ public class ContactsManager {
   public void viewContacts() {
     print("Name | Phone number");
     print("---------------");
-    for (Contact contact : contacts) {
+    for (Contact contact : CONTACTS) {
       print(contact.getName() + " | " + contact.getPhoneNumber());
     }
   }
